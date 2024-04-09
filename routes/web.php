@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\pageController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [pageController::class, 'welcome']);
@@ -21,5 +22,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/dashboard/create', [PostController::class, 'create']);
+Route::post('/dashboard',PostController::class.'@store')->name('dashboard.store');
+
+//Route::middleware('auth')->group(function (){
+//    Route::get('/dashboard', [PostController::class, 'create']);
+//});
 
 require __DIR__.'/auth.php';
