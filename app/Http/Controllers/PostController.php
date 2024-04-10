@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -12,9 +13,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $id = Auth::id();
+
+        $posts = Post::where('id_user', $id)->get();
         return view('myposts', compact('posts'), [
-            'title' => 'Mes posts'
+            'title' => 'Mes posts',
         ]);
     }
 
@@ -23,10 +26,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::id();
+
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'content' => 'required',
+            'id_user' => 'required',
         ]);
         Post::create($request->all());
         return redirect()->route('store')
@@ -36,12 +42,15 @@ class PostController extends Controller
     /**
      * Show the form for creating a new post.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\Response
      */
     public function create()
     {
+        $id = Auth::id();
+
         return view('create', [
-            'title' => 'Nouveau Post'
+            'title' => 'Nouveau Post',
+            'id_user' => $id,
         ]);
     }
     /**
@@ -65,7 +74,7 @@ class PostController extends Controller
         ]);
         $post = Post::find($id);
         $post->update($request->all());
-        return redirect()->route('posts.index')
+        return redirect()->route('myposts')
             ->with('success', 'Post updated successfully.');
     }
 
@@ -76,7 +85,15 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->delete();
-        return redirect()->route('posts.index')
+        return redirect()->route('myposts')
             ->with('success', 'Post deleted successfully');
+    }
+
+    public function edit($id)
+    {
+        $post = Post::find($id);
+        return view('edit', compact('post'), [
+            'title' => 'Modifier un post'
+         ]);
     }
 }

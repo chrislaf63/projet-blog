@@ -24,11 +24,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/dashboard/myposts', PostController::class .'@index')->name('myposts');
-Route::get('/dashboard/create', [PostController::class, 'create']);
-Route::post('/dashboard/create',[PostController::class, 'store'])->name('store');
-Route::get('/img/ACB.jpg', function () {
-    return ('layouts/img/ACB.jpg');
-})->name('picture');
+Route::get('/dashboard/create', [PostController::class, 'create'])->name('create');
+Route::post('/dashboard/create', [PostController::class, 'store'])->name('store');
+Route::delete('/dashboard/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/dashboard/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::put('/dashboard/{post}', [PostController::class, 'update'])->name('posts.update');
 //Route::middleware('auth')->group(function (){
 //    Route::get('/dashboard', [PostController::class, 'create']);
 //});

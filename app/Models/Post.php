@@ -13,5 +13,6 @@ class Post extends Model
         'title',
         'description',
         'content',
+        'id_user',
     ];
 }
