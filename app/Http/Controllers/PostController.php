@@ -13,7 +13,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts.index', compact('posts'));
+        return view('myposts', compact('posts'), [
+            'title' => 'Mes posts'
+        ]);
     }
 
     /**
@@ -27,7 +29,7 @@ class PostController extends Controller
             'content' => 'required',
         ]);
         Post::create($request->all());
-        return redirect()->route('')
+        return redirect()->route('store')
             ->with('success','Post created successfully.');
     }
 

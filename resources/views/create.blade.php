@@ -7,24 +7,24 @@
             @include('layouts.front.header')
             <main class="mt-6">
                 <div class="flex justify-center mb-10">
-                <form method="post" action ="{{ route('dashboard.store') }}" class="w-32">
+                <form method="post" action ="{{route('store')}}" class="w-96">
                     @csrf
                     @method("post")
-                    <h1 class="text-center mb-50">Créer un nouveau post</h1>
+                    <h1 class="text-center text-2xl font-semibold mb-3">Créer un nouveau post</h1>
                     <div class="flex-col">
-                        <div class="my-10 w-200">
-                            <label class="block my-10" for="title">Titre</label>
-                            <input class="text-black w-32" type="text" name="title" id="title">
+                        <div class="mb-3 w-96">
+                            <label class="block mb-1.5" for="title">Titre</label>
+                            <input class="text-black w-96" type="text" name="title" id="title">
                         </div>
-                        <div>
-                            <label class="block" for="description">Description</label>
-                            <input class="text-black w-32" type="text" name="description" id="description">
+                        <div class="mb-3 w-96">
+                            <label class="block mb-1.5" for="description">Description</label>
+                            <input class="text-black w-96" type="text" name="description" id="description">
                         </div>
-                        <div>
-                            <label class="block" for="content">Contenu</label>
-                            <textarea class="text-black w-32" name="content" id="content"></textarea>
+                        <div class="mb-3 w-96">
+                            <label class="block mb-1.5" for="content">Contenu</label>
+                            <textarea class="text-black w-96" name="content" id="content" rows="10"></textarea>
                         </div>
-                        <input type="submit" value="Envoyer">
+                        <input class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 cursor-pointer dark:focus:ring-purple-900" type="submit" value="Envoyer">
                     </div>
                 </form>
                 </div>
