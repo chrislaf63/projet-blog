@@ -22,7 +22,7 @@ class PostFactory extends Factory
             'title' => fake()->title(),
             'description' => fake()->sentence(),
             'content' => fake()->text(),
-            'id_user' => fake()->randomDigit(),
+            'user_id' => fake()->randomDigit()
         ];
     }
 

@@ -10,7 +10,7 @@ class pageController extends Controller
 {
 
      public function welcome() {
-         $post = Post::paginate(5);
+         $post = Post::latest()->get();
             return view('welcome' , compact('post'), mergeData: [
                 'title' => 'Welcome Home',
             ]);

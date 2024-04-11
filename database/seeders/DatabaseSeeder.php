@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'totophe',
             'email' => 'totophe@example.com',
             'password' => 'simplon63',
+            'role' => 'administrator',
         ]);
 
 

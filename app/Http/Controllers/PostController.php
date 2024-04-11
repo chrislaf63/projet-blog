@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         $id = Auth::id();
 
-        $posts = Post::where('id_user', $id)->get();
+        $posts = Post::where('user_id', $id)->get();
         return view('myposts', compact('posts'), [
             'title' => 'Mes posts',
         ]);
@@ -26,13 +26,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $id = Auth::id();
-
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'content' => 'required',
-            'id_user' => 'required',
+            'user_id' => 'required',
         ]);
         Post::create($request->all());
         return redirect()->route('store')
@@ -47,10 +45,9 @@ class PostController extends Controller
     public function create()
     {
         $id = Auth::id();
-
         return view('create', [
             'title' => 'Nouveau Post',
-            'id_user' => $id,
+            'user_id' => $id,
         ]);
     }
     /**

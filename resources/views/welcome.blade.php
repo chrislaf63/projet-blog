@@ -7,7 +7,6 @@
             <div class="relative min-h-screen flex flex-col items-center justify-evenly selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     @include('layouts.front.header')
-
                     <main class="mt-6">
                         <div class="grid">
                                 @foreach ($post as $p)
@@ -15,6 +14,7 @@
                                     <h2>{{$p->title}}</h2>
                                     <p>{{$p->description}}</p>
                                     <p>{{$p->content}}</p>
+                                    <p>{{$p->user->name}}</p>
                                 </div>
                                 @endforeach
                         </div>

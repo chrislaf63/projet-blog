@@ -16,6 +16,9 @@
                     <div class="pb-2">
                         <p class="card-text">{{ $post->content }}</p>
                     </div>
+                    <div>
+                        <p>Auteur : {{ $post->user->name }}</p>
+                    </div>
                         <div class="flex justify-around">
                             <div class="mt-4">
                                 <a href="{{ route('posts.edit', $post->id) }}"
