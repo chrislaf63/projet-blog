@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Categorie;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -14,8 +15,14 @@ class PostController extends Controller
     public function index()
     {
         $id = Auth::id();
-
         $posts = Post::where('user_id', $id)->get();
+        $category = Categorie::all();
+        $categoryList = [];
+        $categoryIdList = [];
+        foreach ($category as $cat):
+            array_push($categoryList, $cat->categories);
+            array_push($categoryIdList, $cat->id);
+        endforeach;
         return view('myposts', compact('posts'), [
             'title' => 'Mes posts',
         ]);
@@ -27,11 +34,14 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => ['required', 'exists:categorie, id'],
             'title' => 'required|max:255',
             'description' => 'required',
             'content' => 'required',
             'user_id' => 'required',
         ]);
+
+
         Post::create($request->all());
         return redirect()->route('store')
             ->with('success','Post created successfully.');
@@ -48,6 +58,7 @@ class PostController extends Controller
         return view('create', [
             'title' => 'Nouveau Post',
             'user_id' => $id,
+            'categories' => Categorie::select('id', 'categories')->get()
         ]);
     }
     /**
@@ -65,6 +76,7 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
             'title' => 'required|max:255',
             'description' => 'required',
             'content' => 'required',
@@ -90,7 +102,8 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         return view('edit', compact('post'), [
-            'title' => 'Modifier un post'
+            'title' => 'Modifier un post',
+            'categories' => Categorie::select('id', 'categories')->get()
          ]);
     }
 }

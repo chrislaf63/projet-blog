@@ -10,16 +10,24 @@
                 <h1 class="text-center text-2xl font-semibold mb-3">Modifier un post</h1>
                 <div class="flex-col">
                     <div class="mb-3 w-96">
+                        <label class="block mb-1.5" for="category">Categorie</label>
+                        <select class="text-black w-96" name="category_id" id="category">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->categories }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3 w-96">
                         <label class="block mb-1.5" for="title">Titre</label>
-                        <input class="text-black w-96" type="text" name="title" id="title">
+                        <input class="text-black w-96" type="text" name="title" id="title" value="{{$post->title}}">
                     </div>
                     <div class="mb-3 w-96">
                         <label class="block mb-1.5" for="description">Description</label>
-                        <input class="text-black w-96" type="text" name="description" id="description">
+                        <input class="text-black w-96" type="text" name="description" id="description" value="{{$post->description}}">
                     </div>
                     <div class="mb-3 w-96">
                         <label class="block mb-1.5" for="content">Contenu</label>
-                        <textarea class="text-black w-96" name="content" id="content" rows="10"></textarea>
+                        <textarea class="text-black w-96" name="content" id="content" rows="10">{{$post->content}}</textarea>
                     </div>
                     <input
                         class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 cursor-pointer dark:focus:ring-purple-900"

@@ -7,6 +7,9 @@
         @foreach ($posts as $post)
             <div class="my-3 bg-white text-black w-1/2 px-3 pt-3 rounded-lg">
                 <div class="">
+{{--                    <div class="card-body">--}}
+{{--                        <p class="text-lg italic">Categorie : {{ $post->post_id->categories }}</p>--}}
+{{--                    </div>--}}
                     <div>
                         <h5 class="text-xl font-semibold">{{ $post->title }}</h5>
                     </div>

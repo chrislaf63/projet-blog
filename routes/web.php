@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\pageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [pageController::class, 'welcome']);
@@ -25,6 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/dashboard/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::get('/dashboard/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/dashboard/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::get('/dashboard/category', [CategoryController::class, 'index'])->name('category');
+    Route::post('/dashboard/category', [CategoryController::class, 'store'])->name('newcat');
+    Route::delete('/dashboard/category/{cat}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/dashboard/category/{cat}/editCategory', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/dashboard/category/{cat}', [CategoryController::class, 'update'])->name('category.update');
 });
 
 require __DIR__.'/auth.php';

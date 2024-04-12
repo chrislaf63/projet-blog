@@ -14,6 +14,15 @@
                     <h1 class="text-center text-2xl font-semibold mb-3">Créer un nouveau post</h1>
                     <div class="flex-col">
                         <div class="mb-3 w-96">
+                            <label class="block mb-1.5" for="category">Categorie</label>
+                            <select class="text-black w-96" name="category_id" id="category">
+                                <option value="">Sélectionner une catégorie</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->categories }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 w-96">
                             <label class="block mb-1.5" for="title">Titre</label>
                             <input class="text-black w-96" type="text" name="title" id="title">
                         </div>

@@ -11,8 +11,7 @@ class Categorie extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category_id',
-        'post_id'
+        'categories',
     ];
 
     public function posts(): BelongsToMany
