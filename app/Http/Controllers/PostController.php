@@ -16,15 +16,8 @@ class PostController extends Controller
     {
         $id = Auth::id();
         $posts = Post::where('user_id', $id)->get();
-        $category = Categorie::all();
-        $categoryList = [];
-        $categoryIdList = [];
-        foreach ($category as $cat):
-            array_push($categoryList, $cat->categories);
-            array_push($categoryIdList, $cat->id);
-        endforeach;
-        return view('myposts', compact('posts'), [
-            'title' => 'Mes posts',
+        return view('myposts', compact ('posts'), [
+            'title' => 'Mes posts'
         ]);
     }
 
@@ -34,16 +27,51 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_id' => ['required', 'exists:categorie, id'],
+
             'title' => 'required|max:255',
             'description' => 'required',
             'content' => 'required',
             'user_id' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
+//        $data = $request->validated();
+//        $image = $request->validated('image');
+//        $imagePath = $image->store('blog', 'public');
+        $post = new Post;
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->content = $request->content;
+        $post->user_id = $request->user_id;
+        if($request->hasFile('image')) {
+            $photoName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('photos'), $photoName);
+            $post->image = $photoName;
+        }
+        $post->save();
+        $post->category()->attach($request->categories);
 
 
-        Post::create($request->all());
-        return redirect()->route('store')
+//        $post = Post::create($request->all());
+//        $post->category()->attach($request->categories);
+//        Post::create([
+//                "title" => $request->title,
+//                "description" => $request->description,
+//                "content" => $request->content,
+//                "user_id" => $request->user_id
+//                ])->category()->attach($request->categories);
+
+//                $post = Post::create([
+//                    "title" => $request->title,
+//                    "description" => $request->description,
+//                    "content" => $request->content,
+//                    "user_id" => $request->user_id,
+//                    ])->category()->attach($request->categories);
+//        if($request->hasFile('image')) {
+//            $photoName = time().'.'.$request->image->extension();
+//            $request->image->move(public_path('photos'), $photoName);
+//            $post->image = $photoName;
+//        }
+        return redirect()->route('myposts')
             ->with('success','Post created successfully.');
     }
 
@@ -58,7 +86,7 @@ class PostController extends Controller
         return view('create', [
             'title' => 'Nouveau Post',
             'user_id' => $id,
-            'categories' => Categorie::select('id', 'categories')->get()
+            'categories' => Categorie::select('id', 'categorie')->get()
         ]);
     }
     /**
@@ -76,13 +104,20 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'category_id' => ['required', 'exists:categories,id'],
             'title' => 'required|max:255',
             'description' => 'required',
             'content' => 'required',
         ]);
         $post = Post::find($id);
-        $post->update($request->all());
+        $post->update($request->all()); //after update get $post and sync()
+        $post->category()->sync($request->categories);
+
+//        $post->update([
+//            "title" => $request->title,
+//            "description" => $request->description,
+//            "content" => $request->content,
+//        ]);
+
         return redirect()->route('myposts')
             ->with('success', 'Post updated successfully.');
     }
@@ -101,9 +136,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $idCategories = array_column($post->category->all(), 'id');
         return view('edit', compact('post'), [
             'title' => 'Modifier un post',
-            'categories' => Categorie::select('id', 'categories')->get()
+            'categories' => Categorie::select('id', 'categorie')->get(),
+            'idCategories' => $idCategories,
          ]);
     }
 }

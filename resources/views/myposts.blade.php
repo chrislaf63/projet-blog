@@ -1,15 +1,20 @@
-@include('layouts.front.head')
+<x-app-layout>
 
 <body class="bg-gray-600 text-blue-50">
-@include('layouts.front.header')
+{{--@include('layouts.front.header')--}}
 <div class="mt-5">
     <div class=" flex flex-col items-center">
         @foreach ($posts as $post)
             <div class="my-3 bg-white text-black w-1/2 px-3 pt-3 rounded-lg">
                 <div class="">
-{{--                    <div class="card-body">--}}
-{{--                        <p class="text-lg italic">Categorie : {{ $post->post_id->categories }}</p>--}}
-{{--                    </div>--}}
+                    <div class="card-body">
+                        <span class="text-lg italic">Categories : </span>
+                        @forelse($post->category as $category)
+                            <span class="text-lg italic">{{ $category->categorie }}</span>
+                        @empty
+                            <span>Aucune catégorie pour ce post</span>
+                        @endforelse
+                    </div>
                     <div>
                         <h5 class="text-xl font-semibold">{{ $post->title }}</h5>
                     </div>
@@ -41,3 +46,4 @@
     </div>
 </div>
 </body>
+</x-app-layout>

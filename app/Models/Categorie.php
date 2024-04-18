@@ -11,7 +11,7 @@ class Categorie extends Model
     use HasFactory;
 
     protected $fillable = [
-        'categories',
+        'categorie',
     ];
 
     public function posts(): BelongsToMany
@@ -19,3 +19,4 @@ class Categorie extends Model
         return $this->belongsToMany(Post::class);
     }
 }
+

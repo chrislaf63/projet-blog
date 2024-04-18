@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\pageController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [pageController::class, 'welcome']);
-Route::get('/legals', [pageController::class, 'legals']);
+Route::get('/legals', [pageController::class, 'legals'])->name('legals');
+Route::get('/blog', [pageController::class, 'blog'])->name('blog');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/dashboard/category/{cat}', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::get('/dashboard/category/{cat}/editCategory', [CategoryController::class, 'edit'])->name('category.edit');
     Route::put('/dashboard/category/{cat}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/dashboard/users', [UserController::class, 'index'])->name('users');
+    Route::get('/dashboard/{user}/user-edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/dashboard/users/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/dashboard/users/{user}', [CategoryController::class, 'destroy'])->name('user.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -17,7 +17,7 @@ class Post extends Model
         'description',
         'content',
         'user_id',
-        'category_id'
+        'categorie_id'
     ];
 
     public function user(): BelongsTo
@@ -27,6 +27,6 @@ class Post extends Model
 
     public function category(): BelongsToMany
     {
-        return $this->belongsToMany(Categorie::class);
+        return $this->belongsToMany(Categorie::class, "categorie_post");
     }
 }

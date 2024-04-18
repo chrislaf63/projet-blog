@@ -25,10 +25,7 @@
                         <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
                             {{ __('Gérer les catégories') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')">
-                            {{ __('Gérer les catégories') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('create')" :active="request()->routeIs('create')">
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
                             {{ __('Gérer les utilisateurs') }}
                         </x-nav-link>
                     @endif

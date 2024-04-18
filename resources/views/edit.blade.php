@@ -3,19 +3,27 @@
 <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
     @include('layouts.front.header')
     <main >
-        <div class="flex justify-center mb-10">
+        <div class="flex justify-center mb-10 pt-24">
             <form method="post" action="{{ route('posts.update', $post->id) }}" class="w-96">
                 @csrf
                 @method("PUT")
                 <h1 class="text-center text-2xl font-semibold mb-3">Modifier un post</h1>
                 <div class="flex-col">
                     <div class="mb-3 w-96">
-                        <label class="block mb-1.5" for="category">Categorie</label>
-                        <select class="text-black w-96" name="category_id" id="category">
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->categories }}</option>
-                            @endforeach
-                        </select>
+                        <fieldset>
+                            <legend>Categories</legend>
+                            @if (!empty($categories) && count($categories) > 0)
+                                <div class="flex justify-evenly flex-wrap">
+                                @foreach ($categories as $category)
+                                    <div>
+                                        <input type="checkbox" id="cat-{{ $category->id }}" name="categories[]" value="{{ $category->id }}" @if (in_array($category->id, $idCategories)) checked @endif />
+                                        <label class="text-gray-300" for="cat-{{ $category->id }}">{{ $category->categorie }}</label>
+                                    </div>
+                                @endforeach
+                                </div>
+                            @endif
+
+                        </fieldset>
                     </div>
                     <div class="mb-3 w-96">
                         <label class="block mb-1.5" for="title">Titre</label>

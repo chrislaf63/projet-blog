@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Categorie;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'categories' => 'required',
+            'categorie' => 'required',
         ]);
         Categorie::create($request->all());
         return redirect()->route('newcat')
@@ -50,7 +51,7 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'categories' => 'required',
+            'categorie' => 'required',
         ]);
         $cat = Categorie::find($id);
         $cat->update($request->all());
