@@ -8,7 +8,7 @@
 
             <main class="pt-10">
                 <div class="flex justify-center mb-10">
-                <form method="post" action ="{{route('store')}}" class="w-96" enctype="multipart/form-data">
+                <form method="post" action ="{{ route('store') }}" class="w-96" enctype="multipart/form-data">
                     @csrf
                     @method("post")
                     <h1 class="text-center text-2xl font-semibold mb-3">Créer un nouveau post</h1>

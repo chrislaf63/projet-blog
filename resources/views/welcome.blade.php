@@ -9,7 +9,7 @@
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     @include('layouts.front.header')
                     <main class="mt-24">
-                        <div class="grid">
+                        <div class="grid mb-5">
                                 @foreach ($post as $p)
                                     <div id="docs-card" class="flex flex-col mt-10 items-start gap-6 overflow-hidden rounded-lg bg-white p-6 text-black">
                                         <div class="flex ">
@@ -34,6 +34,7 @@
                                     </div>
                                 @endforeach
                         </div>
+                        {{ $post->links() }}
                     </main>
                    @include('layouts.front.footer')
                 </div>

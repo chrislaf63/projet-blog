@@ -20,6 +20,7 @@ class PostSeeder extends Seeder
             'user_id' => '1'
         ]);
 
-        Post::factory(10)->create();
+        $post = Post::factory(10)->create();
+        $post->category->attach(1);
     }
 }

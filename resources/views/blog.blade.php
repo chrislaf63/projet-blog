@@ -3,8 +3,8 @@
 @include('layouts.front.head')
 <body class="font-sans antialiased dark:bg-black dark:text-white/50 z-0 ">
             @include('layouts.front.header')
-            <main class="mt-24 flex">
-                <div class="w-1/4">
+            <main class="mt-24 flex mb-5">
+                <div class="w-2/5">
                     <form method="get" action="{{route('blog')}}">
                         @csrf
                         @method("get")
@@ -26,7 +26,7 @@
                         <input class="ml-32 mt-10 text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 cursor-pointer dark:focus:ring-purple-900" type="submit" value="Trier">
                     </form>
                 </div>
-                <div>
+                <div class="mr-20">
                     @foreach ($post as $p)
                         <div id="docs-card" class="flex flex-col mt-10 items-start gap-6 overflow-hidden rounded-lg bg-white p-6 text-black">
                             <div class="flex ">
@@ -50,9 +50,12 @@
                             </div>
                         </div>
                     @endforeach
+
                 </div>
+
             </main>
+            {{ $post->links() }}
             @include('layouts.front.footer')
-        <
+
 </body>
 </html>

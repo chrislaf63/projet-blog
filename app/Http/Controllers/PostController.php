@@ -34,9 +34,7 @@ class PostController extends Controller
             'user_id' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
-//        $data = $request->validated();
-//        $image = $request->validated('image');
-//        $imagePath = $image->store('blog', 'public');
+
         $post = new Post;
         $post->title = $request->title;
         $post->description = $request->description;
@@ -50,27 +48,6 @@ class PostController extends Controller
         $post->save();
         $post->category()->attach($request->categories);
 
-
-//        $post = Post::create($request->all());
-//        $post->category()->attach($request->categories);
-//        Post::create([
-//                "title" => $request->title,
-//                "description" => $request->description,
-//                "content" => $request->content,
-//                "user_id" => $request->user_id
-//                ])->category()->attach($request->categories);
-
-//                $post = Post::create([
-//                    "title" => $request->title,
-//                    "description" => $request->description,
-//                    "content" => $request->content,
-//                    "user_id" => $request->user_id,
-//                    ])->category()->attach($request->categories);
-//        if($request->hasFile('image')) {
-//            $photoName = time().'.'.$request->image->extension();
-//            $request->image->move(public_path('photos'), $photoName);
-//            $post->image = $photoName;
-//        }
         return redirect()->route('myposts')
             ->with('success','Post created successfully.');
     }
@@ -109,8 +86,19 @@ class PostController extends Controller
             'content' => 'required',
         ]);
         $post = Post::find($id);
-        $post->update($request->all()); //after update get $post and sync()
-        $post->category()->sync($request->categories);
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->content = $request->content;
+        if($request->hasFile('image')) {
+            $photoName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('photos'), $photoName);
+            $post->image = $photoName;
+        }
+
+        $post->update();
+
+//        $post->update($request->all()); //after update get $post and sync()
+//        $post->category()->sync($request->categories);
 
 //        $post->update([
 //            "title" => $request->title,
