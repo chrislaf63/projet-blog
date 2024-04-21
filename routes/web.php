@@ -8,9 +8,10 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 
-Route::get('/', [pageController::class, 'welcome']);
+Route::get('/', [pageController::class, 'welcome'])->name('welcome');
 Route::get('/legals', [pageController::class, 'legals'])->name('legals');
 Route::get('/blog', [pageController::class, 'blog'])->name('blog');
+Route::get('/blog/{post}', [PostController::class, 'show'])->name('show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/dashboard/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::put('/dashboard/users/{user}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/dashboard/users/{user}', [CategoryController::class, 'destroy'])->name('user.destroy');
+    Route::delete('/dashboard/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::post('/dashboard/category', [CategoryController::class, 'store'])->name('newcat');
     Route::delete('/dashboard/category/{cat}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });

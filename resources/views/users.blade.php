@@ -23,16 +23,16 @@
                     <div>
                         <p class="text-lg text-center"><strong>Rôle</strong> : {{ $user->role }}</p>
                     </div>
-                    <div class="flex justify-around">
-                        <div class="mt-4">
-                            <a href="{{ route('user.edit', $user->id) }}"
-                               class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
+                    <div class="flex justify-center">
+                        <div class="mt-2.5">
+                            <a href="{{ route('user.edit', $user->id) }}"><button
+                                    class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2 text-center me-2 mb-2 dark:focus:ring-yellow-900">Edit</button></a>
                         </div>
                         <div class="mt-2.5">
                             <form action="{{ route('user.destroy', $user->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                                <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base px-5 py-2 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                             </form>
                         </div>
                     </div>

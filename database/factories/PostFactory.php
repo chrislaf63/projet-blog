@@ -22,7 +22,8 @@ class PostFactory extends Factory
             'title' => fake()->title(),
             'description' => fake()->sentence(),
             'content' => fake()->text(),
-            'user_id' => fake()->randomDigit()
+            'user_id' => fake()->randomDigit(),
+            'image' => fake()->randomElement(['1713359586.jpg', '1713386543.png', '1713424704.png', '1713430520.jpg', '1713530934.jpg', '1713531479.jpg', '1713531643.png'])
         ];
     }
 

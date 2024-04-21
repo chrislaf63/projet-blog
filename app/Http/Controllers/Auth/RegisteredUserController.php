@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Rules\ReCaptchaV3;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -41,6 +42,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'g-recaptcha-response' => ['required', new ReCaptchaV3('submitContact')]
         ]);
 
         event(new Registered($user));

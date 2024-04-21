@@ -46,6 +46,7 @@
 
                                     <p class="font-semibold italic ml-5">{{$p->description}}</p>
                                     <p class="p-3.5">{{$p->content}}</p>
+                                    <a href="{{ route('show', $p->id) }}"><button class="ml-3 bg-gray-200 px-4 py-1 round-sm hover:bg-gray-300">Voir le post</button></a>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +55,7 @@
                 </div>
 
             </main>
-            {{ $post->links() }}
+            {{ $post->withQueryString()-> links() }}
             @include('layouts.front.footer')
 
 </body>

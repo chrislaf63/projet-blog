@@ -21,6 +21,6 @@ class PostSeeder extends Seeder
         ]);
 
         $post = Post::factory(10)->create();
-        $post->category->attach(1);
+
     }
 }

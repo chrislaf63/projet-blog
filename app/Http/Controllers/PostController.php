@@ -20,7 +20,20 @@ class PostController extends Controller
             'title' => 'Mes posts'
         ]);
     }
-
+    /**
+     * Show the form for creating a new post.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $id = Auth::id();
+        return view('create', [
+            'title' => 'Nouveau Post',
+            'user_id' => $id,
+            'categories' => Categorie::select('id', 'categorie')->get()
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -51,28 +64,25 @@ class PostController extends Controller
         return redirect()->route('myposts')
             ->with('success','Post created successfully.');
     }
-
-    /**
-     * Show the form for creating a new post.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $id = Auth::id();
-        return view('create', [
-            'title' => 'Nouveau Post',
-            'user_id' => $id,
-            'categories' => Categorie::select('id', 'categorie')->get()
-        ]);
-    }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         $post = Post::find($id);
-        return view('posts.show', compact('post'));
+        return view('show', compact('post'),[
+            'title' => 'Voir un post'
+        ]);
+    }
+    public function edit($id)
+    {
+        $post = Post::find($id);
+        $idCategories = array_column($post->category->all(), 'id');
+        return view('edit', compact('post'), [
+            'title' => 'Modifier un post',
+            'categories' => Categorie::select('id', 'categorie')->get(),
+            'idCategories' => $idCategories,
+        ]);
     }
 
     /**
@@ -94,8 +104,9 @@ class PostController extends Controller
             $request->image->move(public_path('photos'), $photoName);
             $post->image = $photoName;
         }
-
         $post->update();
+        $post->category()->sync($request->categories);
+
 
 //        $post->update($request->all()); //after update get $post and sync()
 //        $post->category()->sync($request->categories);
@@ -120,15 +131,5 @@ class PostController extends Controller
         return redirect()->route('myposts')
             ->with('success', 'Post deleted successfully');
     }
-
-    public function edit($id)
-    {
-        $post = Post::find($id);
-        $idCategories = array_column($post->category->all(), 'id');
-        return view('edit', compact('post'), [
-            'title' => 'Modifier un post',
-            'categories' => Categorie::select('id', 'categorie')->get(),
-            'idCategories' => $idCategories,
-         ]);
-    }
 }
+

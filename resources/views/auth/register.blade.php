@@ -1,5 +1,10 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <script>
+        function onSubmit(token) {
+            document.getElementById("RegisterForm").submit();
+        }
+    </script>
+    <form id="RegisterForm" method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Name -->
@@ -45,7 +50,7 @@
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button>
                 {{ __('Register') }}
             </x-primary-button>
         </div>
