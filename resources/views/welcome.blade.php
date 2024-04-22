@@ -11,25 +11,29 @@
                     <main class="mt-24">
                         <div class="grid mb-5">
                                 @foreach ($post as $p)
-                                    <div id="docs-card" class="flex flex-col mt-10 items-start gap-6 overflow-hidden rounded-lg bg-white p-6 text-black">
-                                        <div class="flex ">
+                                    <div id="docs-card" class="flex flex-col mt-10 items-start gap-6 rounded-lg bg-white p-6 text-black h-64">
+                                        <div class="flex w-[100%]">
                                             <div class="w-1/4">
                                                 <img src="/photos/{{$p->image}}">
                                             </div>
-                                            <div class="w-3/4">
-                                                <h2 class="text-2xl text-center font-bold mb-3">{{$p->title}}</h2>
-                                                <span class=" ml-6"><strong>Catégories : </strong></span>
-                                                @forelse($p->category as $category)
-                                                    <span class="ml-3">{{ $category->categorie }}</span>
-                                                @empty
-                                                    <span>Aucune catégorie pour ce post</span>
-                                                @endforelse
+                                            <div class="w-3/4 " >
+                                                <div class="overflow-hidden pb-1 h-44">
+                                                    <h2 class="text-2xl text-center font-bold mb-3">{{$p->title}}</h2>
+                                                    <span class=" ml-6"><strong>Catégories : </strong></span>
+                                                    @forelse($p->category as $category)
+                                                        <span class="ml-3">{{ $category->categorie }}</span>
+                                                    @empty
+                                                        <span>Aucune catégorie pour ce post</span>
+                                                    @endforelse
 
-                                                <p class="italic ml-8 mb-2">Posté le {{$p->created_at}} par <strong>{{$p->user?->name}}</strong></p>
+                                                    <p class="italic ml-8 mb-1.5">Posté le {{$p->created_at}} par <strong>{{$p->user?->name}}</strong></p>
+                                                    <p class="font-semibold italic ml-5">{{$p->description}}</p>
+                                                    <p class="p-3">{{$p->content}}</p>
+                                                </div>
+                                                <a href="{{ route('show', $p->id) }}"><button class="ml-3 mt-3 bg-gray-200 px-4 py-1 border-gray-300 border-2 rounded-lg hover:bg-gray-300">Voir le post</button></a>
 
-                                                <p class="font-semibold italic ml-5">{{$p->description}}</p>
-                                                <p class="p-3.5">{{$p->content}}</p>
-                                            </div>
+                                                </div>
+
                                         </div>
                                     </div>
                                 @endforeach

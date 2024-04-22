@@ -22,18 +22,15 @@ class pageController extends Controller
     {
 
         $items = array(
-            'Bonjour',
-            'Laravel',
-            'Tu',
-            'nous',
-            'fais',
-            'bien',
-            'galerer'
+            'Editeur du site : Christophe Lafarge',
+            'Hébergement : mon  PC (un magnifique PC)',
+            'Framework : Laravel',
+            'Coordonées du site : partout où va mon PC'
         );
 
         return view('legals', [
             'title' => 'Legals',
-            'content' => 'Lorem Ipsum',
+            'content' => ' (c) Christophe LAFARGE avec Simplon Mars 2024',
             'items' => $items
         ]);
     }
