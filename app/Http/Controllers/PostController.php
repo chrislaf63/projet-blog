@@ -39,7 +39,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+;        $request->validate([
 
             'title' => 'required|max:255',
             'description' => 'required',
@@ -50,6 +51,7 @@ class PostController extends Controller
 
         $post = new Post;
         $post->title = $request->title;
+        $post->slug = str_replace(["é", "è", "ê", "à", "ù", ".", "'", " "], ["e", "e", "e", "a", "u", "", "", "-"], $post->title);
         $post->description = $request->description;
         $post->content = $request->content;
         $post->user_id = $request->user_id;
@@ -58,6 +60,7 @@ class PostController extends Controller
             $request->image->move(public_path('photos'), $photoName);
             $post->image = $photoName;
         }
+
         $post->save();
         $post->category()->attach($request->categories);
 
@@ -67,12 +70,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        $post = Post::find($id);
-        return view('show', compact('post'),[
+//        $post = Post::find($id);
+         return view('show', compact('post'),[
             'title' => 'Voir un post'
-        ]);
+        ])->withPost($post);
     }
     public function edit($id)
     {
@@ -99,6 +102,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->content = $request->content;
+        $post->slug = str_replace(["é", "è", "ê", "à", "ù", ".", " "], ["e", "e", "e", "a", "u", "", "-"], $post->title);
         if($request->hasFile('image')) {
             $photoName = time().'.'.$request->image->extension();
             $request->image->move(public_path('photos'), $photoName);
@@ -106,16 +110,6 @@ class PostController extends Controller
         }
         $post->update();
         $post->category()->sync($request->categories);
-
-
-//        $post->update($request->all()); //after update get $post and sync()
-//        $post->category()->sync($request->categories);
-
-//        $post->update([
-//            "title" => $request->title,
-//            "description" => $request->description,
-//            "content" => $request->content,
-//        ]);
 
         return redirect()->route('myposts')
             ->with('success', 'Post updated successfully.');

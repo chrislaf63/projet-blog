@@ -47,7 +47,7 @@
                                         <p class="font-semibold italic ml-5 text-gray-500">{{$p->description}}</p>
                                         <p class="p-3.5">{{$p->content}}</p>
                                     </div>
-                                    <a href="{{ route('show', $p->id) }}"><button class="ml-3 mt-3 text-gray-100 bg-gray-500 px-4 py-1 border-gray-400 border-2 rounded-lg hover:bg-gray-600">Voir le post</button></a>
+                                    <a href="{{ route('show', $p->slug) }}"><button class="ml-3 mt-3 text-gray-100 bg-gray-500 px-4 py-1 border-gray-400 border-2 rounded-lg hover:bg-gray-600">Voir le post</button></a>
                                 </div>
                             </div>
 

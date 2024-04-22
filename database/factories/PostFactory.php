@@ -18,8 +18,11 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->title;
+//        $search = array()
         return [
-            'title' => fake()->title(),
+            'title' => $title,
+            'slug' => str_replace(["é", "è", "ê", "à", "ù", ".", "'", " "], ["e", "e", "e", "a", "u", "", "", "-"], $title),
             'description' => fake()->sentence(),
             'content' => fake()->text(),
             'user_id' => fake()->randomDigit(),

@@ -38,11 +38,8 @@ class pageController extends Controller
 
     public function blog(Request $request)
     {
-//       dd($request->all());
-//        $post = Post::latest()->get();
         if(isset($request->categories ) && $request->categories != null && $request->categories != "all") {
             $categorys = $request->categories;
-//            dd($category);
             $post = Post::whereHas('category', function ($q) use ($request) {
                 $q->where('categorie_id', $request->categories);
             })->latest()->paginate(2);
