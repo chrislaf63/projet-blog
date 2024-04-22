@@ -60,7 +60,13 @@ class PostController extends Controller
             $request->image->move(public_path('photos'), $photoName);
             $post->image = $photoName;
         }
-
+        $compare = Post::select('slug')->get();
+        foreach ($compare as $c):
+            $i = "1";
+        if($post->slug == $c->slug) {
+            $post->slug =$post->slug.$i;
+        }
+        endforeach;
         $post->save();
         $post->category()->attach($request->categories);
 
@@ -108,6 +114,13 @@ class PostController extends Controller
             $request->image->move(public_path('photos'), $photoName);
             $post->image = $photoName;
         }
+        $compare = Post::select('slug')->get();
+        foreach ($compare as $c):
+            $i = "1";
+            if($post->slug == $c->slug) {
+                $post->slug =$post->slug.$i;
+            }
+        endforeach;
         $post->update();
         $post->category()->sync($request->categories);
 
