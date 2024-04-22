@@ -28,7 +28,7 @@
                 </div>
                 <div class="mr-20 w-3/4 ">
                     @foreach ($post as $p)
-                        <div id="docs-card" class="flex flex-col mt-10 items-start gap-6 overflow-hidden rounded-lg bg-white p-6 text-black h-72">
+                        <div id="docs-card" class="flex flex-col mt-10 items-start gap-6 overflow-hidden rounded-lg bg-gray-800/90 p-6 text-gray-400 p-6  h-72">
                             <div class="flex w-[100%]">
                                 <div class="w-1/4">
                                     <img src="/photos/{{$p->image}}" width="100%">
@@ -36,7 +36,7 @@
                                 <div class="w-3/4">
                                     <div class="overflow-hidden h-52">
                                         <h2 class="text-2xl text-center font-bold mb-3">{{$p->title}}</h2>
-                                        <span class=" ml-6"><strong>Catégories : </strong></span>
+                                        <span class=" ml-6 text-gray-500"><strong>Catégories : </strong></span>
                                         @forelse($p->category as $category)
                                             <span class="ml-3">{{ $category->categorie }}</span>
                                         @empty
@@ -44,10 +44,10 @@
                                         @endforelse
 
                                         <p class="italic ml-8 mb-2">Posté le {{$p->created_at}} par <strong>{{$p->user?->name}}</strong></p>
-                                        <p class="font-semibold italic ml-5">{{$p->description}}</p>
+                                        <p class="font-semibold italic ml-5 text-gray-500">{{$p->description}}</p>
                                         <p class="p-3.5">{{$p->content}}</p>
                                     </div>
-                                    <a href="{{ route('show', $p->id) }}"><button class="ml-3 mt-3 bg-gray-200 px-4 py-1 border-gray-300 border-2 rounded-lg hover:bg-gray-300">Voir le post</button></a>
+                                    <a href="{{ route('show', $p->id) }}"><button class="ml-3 mt-3 text-gray-100 bg-gray-500 px-4 py-1 border-gray-400 border-2 rounded-lg hover:bg-gray-600">Voir le post</button></a>
                                 </div>
                             </div>
 

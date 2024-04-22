@@ -1,6 +1,6 @@
 <x-app-layout>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-<div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+<div class="bg-gray-50 h-screen text-black/50 dark:bg-black dark:text-white/50">
 
     <main>
         <div class="flex justify-center">

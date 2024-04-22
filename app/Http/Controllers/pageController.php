@@ -55,7 +55,13 @@ class pageController extends Controller
             'categories' => Categorie::select('id', 'categorie')->get()
         ]);
     }
-
+    public function about()
+    {
+        return view('about', [
+            'title' => 'A propos',
+            'content' => ' (c) Christophe LAFARGE avec Simplon Mars 2024'
+        ]);
+    }
 }
 
 

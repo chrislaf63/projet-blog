@@ -1,7 +1,4 @@
 <x-app-layout>
-
-    <body class="bg-gray-600 text-blue-50">
-    {{--@include('layouts.front.header')--}}
     <div class="mt-5">
         <div class=" flex flex-col items-center">
 
@@ -52,8 +49,6 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
     </div>
-    </body>
 </x-app-layout>

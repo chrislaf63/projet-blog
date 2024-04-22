@@ -10,6 +10,7 @@ use App\Http\Middleware\IsAdmin;
 
 Route::get('/', [pageController::class, 'welcome'])->name('welcome');
 Route::get('/legals', [pageController::class, 'legals'])->name('legals');
+Route::get('/about', [pageController::class, 'about'])->name('about');
 Route::get('/blog', [pageController::class, 'blog'])->name('blog');
 Route::get('/blog/{post}', [PostController::class, 'show'])->name('show');
 
